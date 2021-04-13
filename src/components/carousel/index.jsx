@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel, { Dots } from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
+import { Container } from "@material-ui/core";
 export default function HeroCarousel(props) {
   const { products } = props;
   const [value, setValue] = useState(0);
@@ -19,7 +20,7 @@ export default function HeroCarousel(props) {
   // }, [products, setImages, setThumbnails]);
 
   return (
-    <div>
+    <Container>
       <Carousel
         value={value}
         slides={products.map((product) => (
@@ -36,7 +37,14 @@ export default function HeroCarousel(props) {
         ))}
         onChange={setValue}
       />
-      <div style={{ maxWidth: "100vw", overflowX: "auto" }}>
+      <div
+        style={{
+          maxWidth: "100vw",
+          overflowX: "auto",
+          marginTop: 50,
+          marginBottom: 70,
+        }}
+      >
         <Dots
           // number={thumbnails.length}
           thumbnails={products.map((product) => (
@@ -50,6 +58,6 @@ export default function HeroCarousel(props) {
           onChange={setValue}
         />
       </div>
-    </div>
+    </Container>
   );
 }

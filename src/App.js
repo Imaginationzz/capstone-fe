@@ -1,30 +1,25 @@
+import { CssBaseline, Fab } from "@material-ui/core";
+import { ShoppingBasketOutlined } from "@material-ui/icons";
 import React from "react";
-
-import { useSelector, useDispatch } from "react-redux";
-import HomePage from "./pages/HomePage";
-import ProductPage from "./pages/productpage/index";
-import CartPage from "./pages/cart/index";
-import { Badge, Dropdown } from "react-bootstrap";
+import { Badge } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import SigninPage from "./pages/SigninPage";
-import { signout } from "./redux/actions/userActions";
-import RegisterPage from "./pages/RegisterPage";
-import ShippingPage from "./pages/ShippingPage";
-import PaymentPage from "./pages/PaymentPage";
-import PlaceorderPage from "./pages/PlaceorderPage";
-import AddProductPage from "./pages/AddProductPage";
-import ChatModal from "./components/ChatModal";
 import io from "socket.io-client";
-
 import Appbar from "./components/appbar";
 import Footer from "./components/footer";
+import Protected from "./components/protected";
+import AddProduct2 from "./pages/add/index";
+import AddProductPage from "./pages/AddProductPage";
 import Signin2 from "./pages/auth/signin/index";
 import Register2 from "./pages/auth/signup/index";
-import AddProduct2 from "./pages/add/index";
+import CartPage from "./pages/cart/index";
+import Checkout from "./pages/checkout/index";
+import HomePage from "./pages/HomePage";
+import ProductPage from "./pages/productpage/index";
+import RegisterPage from "./pages/RegisterPage";
+import SigninPage from "./pages/SigninPage";
+import { signout } from "./redux/actions/userActions";
 
-import { CssBaseline } from "@material-ui/core";
-import Protected from "./components/protected";
-import Checkout from "./pages/checkout/index"
 const connOpt = {
   transports: ["websocket", "polling"],
 };
@@ -170,12 +165,14 @@ function App() {
             /> */}
             <Route
               path="/checkout"
-              render={() => <>
+              render={() => (
                 <>
-                  <Appbar />
-                  <Checkout />
+                  <>
+                    <Appbar />
+                    <Checkout />
+                  </>
                 </>
-              </>}
+              )}
               exact
             />
             <Route path="/addproduct" component={AddProductPage} exact />
@@ -206,18 +203,28 @@ function App() {
               render={(props) => (
                 <>
                   <Appbar {...props} />
-                  <ProductPage  {...props} />
+                  <ProductPage {...props} />
                 </>
               )}
             />
-            <Route path="/cart" render={(props) => (
-              <Protected>
-                <Appbar />
-                <CartPage {...props} />
-              </Protected>
-            )} />
+            <Route
+              path="/cart"
+              render={(props) => (
+                <Protected>
+                  <Appbar />
+                  <CartPage {...props} />
+                </Protected>
+              )}
+            />
           </main>
           {/* <footer className="row center">UsedHomeFurn-all rights reserved</footer> */}
+          <div style={{ position: "fixed", bottom: 50, right: 50 }}>
+            <Badge badgeContent={totalItems} color="primary">
+              <Fab component={Link} to="/cart" color="primary" aria-label="add">
+                <ShoppingBasketOutlined />
+              </Fab>
+            </Badge>
+          </div>
           <Footer />
         </div>
       </Router>

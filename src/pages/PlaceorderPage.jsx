@@ -18,9 +18,7 @@ export default function PlaceorderPage(props) {
     (state) => state.paymentState.paymentMethod
   );
   const cartState = useSelector((state) => state.cartState);
-  console.log(shippingAdress);
-  console.log(paymentMethod);
-  console.log(cartState);
+
   const { cartItems } = cartState;
   const addPayPalScript = async () => {
     const { data } = await axios.get("http://localhost:5000/order/paypal");

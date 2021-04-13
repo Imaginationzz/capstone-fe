@@ -14,7 +14,11 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 import { saveShippingAddress } from "../../redux/actions/shippingActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "../../redux/actions/orderActions";
+import { ORDER_CREATE_RESET } from "../../redux/constants/orderConstants";
+import { RESET_CART } from "../../redux/constants/cartConstants";
+import { useHistory } from "react-router";
 
 function Copyright() {
   return (
@@ -70,6 +74,31 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
 export default function Checkout() {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const shippingAdress = useSelector(
+    (state) => state.shippingState.shippingAdress
+  );
+
+  const paymentMethod = useSelector(
+    (state) => state.paymentState.paymentMethod
+  );
+
+  const cartState = useSelector((state) => state.cartState);
+
+  const { cartItems } = cartState;
+  const placeOrderHandler = () => {
+    const order = {
+      shippingAdress: shippingAdress,
+      paymentMethod: paymentMethod,
+      orderItems: cartItems,
+    };
+    dispatch(createOrder(order));
+    dispatch({ type: ORDER_CREATE_RESET });
+    dispatch({ type: RESET_CART });
+    //history.push("/");
+  };
+
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -77,6 +106,10 @@ export default function Checkout() {
     setActiveStep(activeStep + 1);
     if (activeStep === 0) {
       setAddress();
+    } else {
+      if (activeStep === steps.length - 1) {
+        placeOrderHandler();
+      }
     }
   };
 
@@ -85,8 +118,6 @@ export default function Checkout() {
   };
 
   const [adressState, setAdressState] = useState("");
-
-  const dispatch = useDispatch();
 
   const setAddress = (e) => {
     dispatch(saveShippingAddress(adressState));

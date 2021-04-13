@@ -58,62 +58,71 @@ export default function Review() {
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
-      <List disablePadding>
-        {items.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText
-              primary={product.name}
-              secondary={product.description}
-            />
-            <Typography variant="body2">{`$ ${product.price}`}</Typography>
-          </ListItem>
-        ))}
-        <ListItem className={classes.listItem}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" className={classes.total}>
-            Total ({items.reduce((acc, val) => acc + val.Quantity, 0)} items)
-          </Typography>
-        </ListItem>
-      </List>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
-          </Typography>
-          <Typography gutterBottom>
-            {shippingState.shippingAdress.fullName.toUpperCase()}
-          </Typography>
-          <Typography gutterBottom>
-            {Object.values(shippingState.shippingAdress).join(", ")}
-          </Typography>
-        </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
-          </Typography>
-          <Grid container>
-            {creditCard &&
-              Object.entries(creditCard).map(([key, value]) => (
-                <React.Fragment key={key}>
-                  <Grid item xs={6}>
-                    <Typography gutterBottom>{key.toUpperCase()}</Typography>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Typography gutterBottom>
-                      {key === "cardNumber"
-                        ? value
-                            .trim() // 1234 1234 1234 1234
-                            .split("")
-                            .map((char, i) => (i < 12 ? "*" : char))
-                            .join("")
-                        : value.toUpperCase()}
-                    </Typography>
-                  </Grid>
-                </React.Fragment>
-              ))}
+      {cartState && shippingState && (
+        <>
+          {" "}
+          <List disablePadding>
+            {items.map((product) => (
+              <ListItem className={classes.listItem} key={product.name}>
+                <ListItemText
+                  primary={product.name}
+                  secondary={product.description}
+                />
+                <Typography variant="body2">{`$ ${product.price}`}</Typography>
+              </ListItem>
+            ))}
+            <ListItem className={classes.listItem}>
+              <ListItemText primary="Total" />
+              <Typography variant="subtitle1" className={classes.total}>
+                Total ({items.reduce((acc, val) => acc + val.Quantity, 0)}{" "}
+                items)
+              </Typography>
+            </ListItem>
+          </List>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Typography variant="h6" gutterBottom className={classes.title}>
+                Shipping
+              </Typography>
+              <Typography gutterBottom>
+                {shippingState.shippingAdress &&
+                  shippingState.shippingAdress.fullName.toUpperCase()}
+              </Typography>
+              <Typography gutterBottom>
+                {Object.values(shippingState.shippingAdress).join(", ")}
+              </Typography>
+            </Grid>
+            <Grid item container direction="column" xs={12} sm={6}>
+              <Typography variant="h6" gutterBottom className={classes.title}>
+                Payment details
+              </Typography>
+              <Grid container>
+                {creditCard &&
+                  Object.entries(creditCard).map(([key, value]) => (
+                    <React.Fragment key={key}>
+                      <Grid item xs={6}>
+                        <Typography gutterBottom>
+                          {key.toUpperCase()}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Typography gutterBottom>
+                          {key === "cardNumber"
+                            ? value
+                                .trim() // 1234 1234 1234 1234
+                                .split("")
+                                .map((char, i) => (i < 12 ? "*" : char))
+                                .join("")
+                            : value.toUpperCase()}
+                        </Typography>
+                      </Grid>
+                    </React.Fragment>
+                  ))}
+              </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-      </Grid>
+        </>
+      )}
     </React.Fragment>
   );
 }

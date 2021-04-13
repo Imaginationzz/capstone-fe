@@ -15,8 +15,10 @@ import ChairIcon from "../../images/chair.svg";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Badge from "@material-ui/core/Badge";
+import UserMenu from "../usermenu";
 import { signout } from "../../redux/actions/userActions";
 import { USER_SIGNOUT } from "../../redux/constants/userConstants";
+import { useTheme } from "@material-ui/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -27,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     display: "none",
+    fontWeight: "bold",
+    fontSize: 24,
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -34,11 +38,13 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
+    border: "1px solid " + theme.palette.primary.main,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
+    marginRight: "1em",
     width: "100%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
@@ -88,8 +94,19 @@ export default function Appbar({ setSearchTerm }) {
     dispatch({ type: USER_SIGNOUT });
     history.push("/signin2");
   };
+  const theme = useTheme();
   return (
-    <AppBar color="primary" position="fixed">
+    <AppBar
+      style={{
+        paddingTop: theme.spacing(2),
+        backgroundColor: "white",
+        boxShadow: "none",
+        color: theme.palette.primary.main,
+        height: 100,
+        marginBottom: theme.spacing(20),
+      }}
+      position="fixed"
+    >
       <Container>
         <Toolbar>
           <Link
@@ -106,12 +123,10 @@ export default function Appbar({ setSearchTerm }) {
               style={{
                 width: 36,
                 marginRight: 20,
-                color: "#fff",
-                fill: "#fff",
               }}
             />
             <Typography className={classes.title} variant="h6" noWrap>
-              UsedHomeFurn
+              Furniture
             </Typography>
           </Link>
           <Typography
@@ -134,33 +149,10 @@ export default function Appbar({ setSearchTerm }) {
             />
           </div>
 
-          <Link to="/signin2">
-            {userInfo ? (
-              <>
-                <Link to="/cart">
-                  <IconButton color="secondary">
-                    <Badge badgeContent={totalItems} color="primary">
-                      <ShoppingBasketIcon />
-                    </Badge>
-                  </IconButton>
-                </Link>
-                <Button color="secondary" onClick={logOut} variant="outlined">
-                  Logout
-                </Button>
-                <Button color="secondary" variant="text">
-                  <AccountCircleOutlined />
-                  {`${userInfo.userName}`}
-                </Button>
-              </>
-            ) : (
-              <IconButton color="secondary">
-                <AccountCircleOutlined />
-              </IconButton>
-            )}
-          </Link>
-          <Link to="/addproduct2">
-            <PostAddIcon color="secondary" />
-          </Link>
+          <UserMenu
+            name={userInfo && userInfo.userName}
+            userSignedIn={!!userInfo}
+          />
         </Toolbar>
       </Container>
     </AppBar>

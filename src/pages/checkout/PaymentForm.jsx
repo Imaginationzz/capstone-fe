@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCreditCard } from "../../redux/actions/paymentActions";
 
 export default function PaymentForm() {
+  const paymentState = useSelector((state) => state.paymentState);
   const { creditCard } = useSelector((state) => state.paymentState);
+
+  console.log({ paymentState, creditCard });
 
   const dispatch = useDispatch();
   return (
