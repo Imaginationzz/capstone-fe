@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,6 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { register } from "../../../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 import logo from "../../../images/chair.svg";
 
@@ -65,6 +68,32 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const classes = useStyles();
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [userName, setUserName] = useState("");
+  const userState = useSelector((state) => state.userState);
+  const { userInfo, error } = userState;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      alert("passwords do not match!");
+    } else {
+      dispatch(register(firstName, userName, email, password));
+
+      if (userInfo) {
+        history.push("/");
+      } else {
+        history.push("#");
+      }
+    }
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -75,7 +104,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <form className={classes.form} noValidate>
+          <form onSubmit={submitHandler} className={classes.form} noValidate>
             <TextField
               variant="outlined"
               margin="normal"
@@ -86,6 +115,21 @@ export default function SignInSide() {
               name="name"
               autoComplete="name"
               autoFocus
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="userName"
+              label="User Name"
+              name="userName"
+              autoComplete="name"
+              autoFocus
+              onChange={(e) => setUserName(e.target.value)}
+              value={userName}
             />
             <TextField
               variant="outlined"
@@ -97,17 +141,8 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Confirm Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
             <TextField
               variant="outlined"
@@ -119,6 +154,21 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="confirm Password"
+              type="password"
+              id="confirmPassword"
+              autoComplete="current-password"
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              value={confirmPassword}
             />
 
             <Button

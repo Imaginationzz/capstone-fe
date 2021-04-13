@@ -27,10 +27,10 @@ export default function AddProduct() {
     e.preventDefault();
     if (userInfo) {
       dispatch(addProduct(name, category, image, price, brand, description));
-      alert("Product successfully added");
+      // alert("Product successfully added");
       history.push("/");
     } else {
-      alert("you need to sign in!");
+      history.push("/signin2");
     }
   };
   const fileInput = React.createRef();
