@@ -20,8 +20,9 @@ export default function HeroCarousel(props) {
   // }, [products, setImages, setThumbnails]);
 
   return (
-    <Container>
+    <Container style={{ marginTop: 100 }}>
       <Carousel
+        style={{ borderRadius: 15 }}
         value={value}
         slides={products.map((product) => (
           <img
@@ -29,9 +30,10 @@ export default function HeroCarousel(props) {
             src={product.image}
             style={{
               width: "100%", // 2000
-              height: 800, // 800
+              height: 600, // 800
               objectFit: "cover",
-              objectPosition: "0% 0%",
+
+              borderRadius: 15,
             }}
           />
         ))}

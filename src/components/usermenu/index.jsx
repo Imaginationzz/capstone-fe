@@ -32,6 +32,7 @@ export default function UserMenu(props) {
     <div>
       {props.userSignedIn ? (
         <>
+          <span style={{ marginLeft: "0.5em" }}>{`Hello ${props.name} `}</span>
           <IconButton
             aria-controls="simple-menu"
             aria-haspopup="true"
@@ -40,12 +41,11 @@ export default function UserMenu(props) {
           >
             <AccountCircleOutlined />
           </IconButton>
-          <span style={{ marginLeft: "0.5em" }}>{`Hello ${props.name} `}</span>
         </>
       ) : (
         <Button
           style={{ marginLeft: "1em" }}
-          color="secondary"
+          color="primary"
           variant="outlined"
           component={Link}
           to="/signin2"

@@ -21,7 +21,9 @@ export default function PlaceorderPage(props) {
 
   const { cartItems } = cartState;
   const addPayPalScript = async () => {
-    const { data } = await axios.get("http://localhost:5000/order/paypal");
+    const { data } = await axios.get(
+      "https://usedhomefurn-be.herokuapp.com/order/paypal"
+    );
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;

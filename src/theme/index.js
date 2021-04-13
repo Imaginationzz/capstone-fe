@@ -8,9 +8,12 @@ const theme = createMuiTheme({
     secondary: {
       main: "#fff",
     },
+    background: {
+      default: "#fff",
+    },
   },
   typography: {
-    fontFamily: "Alfa Slab One cursive",
+    fontFamily: "Poppins,sans-serif",
   },
 });
 

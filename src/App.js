@@ -24,7 +24,7 @@ const connOpt = {
   transports: ["websocket", "polling"],
 };
 
-let socket = io("http://localhost:5000/", connOpt);
+let socket = io("https://usedhomefurn-be.herokuapp.com/", connOpt);
 
 function App() {
   const [showSide, setShowSide] = React.useState(false);
