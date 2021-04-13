@@ -170,10 +170,10 @@ function App() {
             /> */}
             <Route
               path="/checkout"
-              render={()=><>
+              render={() => <>
                 <>
-                  <Appbar/>
-                  <Checkout/>
+                  <Appbar />
+                  <Checkout />
                 </>
               </>}
               exact
@@ -195,7 +195,7 @@ function App() {
               exact
               render={() => (
                 <>
-                  <Appbar />
+                  <Appbar setSearchTerm={setSearchTerm} />
                   <HomePage searchTerm={searchTerm} />
                 </>
               )}
@@ -206,16 +206,16 @@ function App() {
               render={(props) => (
                 <>
                   <Appbar {...props} />
-                  <ProductPage  {...props}/>
+                  <ProductPage  {...props} />
                 </>
               )}
             />
-            <Route path="/cart"   render={(props) => (
-                <Protected>
-                  <Appbar />
-                  <CartPage {...props}  />
-                </Protected>
-              )} />
+            <Route path="/cart" render={(props) => (
+              <Protected>
+                <Appbar />
+                <CartPage {...props} />
+              </Protected>
+            )} />
           </main>
           {/* <footer className="row center">UsedHomeFurn-all rights reserved</footer> */}
           <Footer />

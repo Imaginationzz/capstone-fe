@@ -7,6 +7,7 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
+import PostAddIcon from "@material-ui/icons/PostAdd";
 import { Button, Container } from "@material-ui/core";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { AccountCircleOutlined } from "@material-ui/icons";
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Appbar() {
+export default function Appbar({ setSearchTerm }) {
   const classes = useStyles();
   const cartState = useSelector((state) => state.cartState);
   const { userInfo } = useSelector((state) => state.userState);
@@ -129,6 +130,7 @@ export default function Appbar() {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
 
@@ -155,6 +157,9 @@ export default function Appbar() {
                 <AccountCircleOutlined />
               </IconButton>
             )}
+          </Link>
+          <Link to="/addproduct2">
+            <PostAddIcon color="secondary" />
           </Link>
         </Toolbar>
       </Container>

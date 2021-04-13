@@ -20,7 +20,9 @@ export default function HomePage({ searchTerm }) {
   return (
     <div>
       {!loading && <HeroCarousel products={products} />}
-      {!loading && <Products products={products} />}
+      {!loading && (
+        <Products filteredProds={filteredProds} products={products} />
+      )}
       {/* <Slider2 /> */}
       {/* {loading ? (
         <Spinner animation="border" role="status">

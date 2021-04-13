@@ -20,7 +20,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        UsedHomeFurn
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -137,7 +137,7 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signin2" variant="body2">
                   {"Already have an account? Sign In"}
                 </Link>
               </Grid>
