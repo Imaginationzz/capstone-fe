@@ -19,6 +19,7 @@ import { createOrder } from "../../redux/actions/orderActions";
 import { ORDER_CREATE_RESET } from "../../redux/constants/orderConstants";
 import { RESET_CART } from "../../redux/constants/cartConstants";
 import { useHistory } from "react-router";
+import { RESET_CREDIT_CART } from "../../redux/constants/paymentConstants";
 
 function Copyright() {
   return (
@@ -94,6 +95,7 @@ export default function Checkout() {
     dispatch(createOrder(order));
     dispatch({ type: ORDER_CREATE_RESET });
     dispatch({ type: RESET_CART });
+    dispatch({ type: RESET_CREDIT_CART });
     //history.push("/");
   };
 

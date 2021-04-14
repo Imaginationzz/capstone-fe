@@ -1,6 +1,7 @@
 import {
   SAVE_PAYMENT_METHOD,
   SET_CREDIT_CART,
+  RESET_CREDIT_CART,
 } from "../constants/paymentConstants";
 
 const paymentState = {
@@ -21,6 +22,11 @@ export const paymentReducer = (state = paymentState, action) => {
       return {
         ...state,
         creditCard: { ...state.creditCard, ...action.payload },
+      };
+    case RESET_CREDIT_CART:
+      return {
+        ...state,
+        creditCard: {},
       };
 
     default:
