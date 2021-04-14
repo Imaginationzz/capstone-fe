@@ -80,9 +80,7 @@ export default function Checkout() {
     (state) => state.shippingState.shippingAdress
   );
 
-  const paymentMethod = useSelector(
-    (state) => state.paymentState.paymentMethod
-  );
+  const creditCard = useSelector((state) => state.paymentState.creditCard);
 
   const cartState = useSelector((state) => state.cartState);
 
@@ -90,7 +88,7 @@ export default function Checkout() {
   const placeOrderHandler = () => {
     const order = {
       shippingAdress: shippingAdress,
-      paymentMethod: paymentMethod,
+      creditCard: creditCard,
       orderItems: cartItems,
     };
     dispatch(createOrder(order));
