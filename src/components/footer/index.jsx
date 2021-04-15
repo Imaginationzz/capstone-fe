@@ -25,8 +25,8 @@ export default function Footer() {
   const classes = useStyles();
 
   return (
-    <div className={classes.outerContainer} style={{ paddingTop: "4rem" }}>
-      <Container style={{ paddingTop: "4rem" }}>
+    <div className={classes.outerContainer} style={{ paddingTop: "2rem" }}>
+      <Container>
         <Grid container>
           <Grid item xs={12} md={4}>
             <div style={{ display: "flex", alignItems: "center" }}>
