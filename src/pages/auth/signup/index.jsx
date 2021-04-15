@@ -99,7 +99,7 @@ export default function SignInSide() {
       <CssBaseline />
       <Grid item xs={false} sm={4} md={9} className={classes.image} />
       <Grid item xs={12} sm={8} md={3} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+        <div className={classes.paper} style={{ marginBottom: "3rem" }}>
           <img src={logo} style={{ width: 50, marginBottom: 50 }} />
           <Typography component="h1" variant="h5">
             Sign up
